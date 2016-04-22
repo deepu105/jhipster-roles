@@ -1,0 +1,21 @@
+version: '2'
+services:
+    jhipster-app:
+        image: jhipster
+        external_links:
+            - jhipster-mysql:mysql
+            - jhipster-elasticsearch:elasticsearch
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod
+            - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/jhipster?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=elasticsearch:9300
+        ports:
+            - 8080:8080
+    jhipster-mysql:
+        extends:
+            file: mysql.yml
+            service: jhipster-mysql
+    jhipster-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: jhipster-elasticsearch

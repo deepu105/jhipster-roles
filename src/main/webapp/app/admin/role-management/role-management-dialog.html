@@ -1,0 +1,56 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myRoleLabel" translate="jhipsterApp.role.home.createOrEditLabel">Create or edit a Role</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group">
+            <label class="control-label" translate="jhipsterApp.role.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="vm.role.name"
+                    required ng-minlength="0" ng-maxlength="50" />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.name.$error.minlength" translate="entity.validation.minlength" translate-value-min="0">
+                    This field is required to be at least 0 characters.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="50">
+                    This field cannot be longer than 50 characters.
+                </p>
+            </div>
+        </div>
+        <div>
+            <ul class="list-group">
+                <li class="list-group-item active" translate="jhipsterApp.role.resource">Resource <span></span></li>
+                <li class="list-group-item role-checkbox" ng-repeat="res in vm.role.resources">
+                    <span>{{ res.name }}</span>
+                    <div class="btn-group pull-right">
+                        <label class="btn btn-default" ng-model="res.permission" uib-btn-radio="0">none</label>
+                        <label class="btn btn-default" ng-model="res.permission" uib-btn-radio="1">view</label>
+                        <label class="btn btn-default" ng-model="res.permission" uib-btn-radio="2">create</label>
+                        <label class="btn btn-default" ng-model="res.permission" uib-btn-radio="3">edit</label>
+                        <label class="btn btn-default" ng-model="res.permission" uib-btn-radio="4">delete</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

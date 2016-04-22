@@ -1,0 +1,29 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "resource",
+            "otherEntityName": "resource",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "authority"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": "0",
+            "fieldValidateRulesMaxlength": "50"
+        }
+    ],
+    "changelogDate": "20160331065824",
+    "dto": "mapstruct",
+    "service": "no",
+    "entityTableName": "role",
+    "pagination": "pagination",
+    "angularJSSuffix": "-management"
+}

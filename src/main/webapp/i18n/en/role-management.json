@@ -1,0 +1,23 @@
+{
+    "jhipsterApp": {
+        "role" : {
+            "home": {
+                "title": "Roles",
+                "createLabel": "Create a new Role",
+                "createOrEditLabel": "Create or edit a Role",
+                "search": "Search for Role"
+            },
+            "created": "A new Role is created with identifier {{ param }}",
+            "updated": "A Role is updated with identifier {{ param }}",
+            "deleted": "A Role is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Role {{ name }}?"
+            },
+            "detail": {
+                "title": "Role"
+            },
+            "name": "Name",
+            "resource": "Resource"
+        }
+    }
+}

@@ -1,0 +1,182 @@
+/*
+package com.mycompany.myapp.security;
+
+import com.mycompany.myapp.domain.Resource;
+import org.aopalliance.intercept.MethodInvocation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.access.AccessDecisionManager;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.lang.annotation.Annotation;
+import java.util.Collection;
+import java.util.Set;
+
+*/
+/**
+ * Custom Access decision manager for method security
+ * Created by Dee on 7/7/2015.
+ *//*
+
+public class CustomAccessDecisionManager implements AccessDecisionManager {
+
+    private final Logger log = LoggerFactory.getLogger(CustomAccessDecisionManager.class);
+
+    @Override
+    public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes)
+        throws AccessDeniedException, InsufficientAuthenticationException {
+        ConfigAttribute configAttribute = getSingleConfigAttribute(configAttributes);
+
+        MethodInvocation methodInvocation = (MethodInvocation) object;
+
+        try {
+            if (authentication != null) {
+                CustomUserDetails user = getCurrentUser(authentication);
+
+                RequestMapping requestMapping = null;
+                for (Annotation annotation : methodInvocation.getMethod().getDeclaredAnnotations()) {
+                    if (annotation instanceof RequestMapping) {
+                        requestMapping = (RequestMapping) annotation;
+                    }
+                }
+
+                String method = getHttpMethod(requestMapping);
+                String resourceName = getResourceName(configAttribute);
+
+
+                if (user != null && !hasAccessToResource(user, method, resourceName)) {
+                    throw new AccessDeniedException("User does not have enough privileges to access this " +
+                        "method");
+                }
+            }
+
+        } catch (ClassCastException e) {
+            throw new IllegalStateException();
+        }
+    }
+
+    @Override
+    public boolean supports(ConfigAttribute attribute) {
+        return false;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return clazz.equals(MethodInvocation.class);
+    }
+
+    */
+/**
+     * checks if the resource has grants in any roles for the user
+     *
+     * @param user
+     * @param method
+     * @param resourceName
+     * @return
+     *//*
+
+    private boolean hasAccessToResource(CustomUserDetails user, String method, String resourceName) {
+
+        final boolean[] hasAccess = {false};
+        Set<Resource> resources = user.getResources();
+        if (resources != null && !resources.isEmpty()){
+            resources.forEach(resource -> {
+                if (hasGrants(resource, resourceName, method)){
+                    log.debug("Role has access to resources: {} ", resourceName);
+                    hasAccess[0] = true;
+                }
+            });
+        }
+        return hasAccess[0];
+    }
+
+    */
+/**
+     * checks for grant for HTTP methods
+     * GET = 1 = VIEW,
+     * POST = 2 = CREATE,
+     * PUT = 3 = EDIT,
+     * DELETE = 4 = DELETE
+     *
+     * @param resource
+     * @param resourceName
+     * @param method
+     * @return
+     *//*
+
+    private boolean hasGrants(Resource resource, String resourceName, String method) {
+        if (!resourceName.equals(resource.getName())) return false;
+        int grant;
+        switch (method) {
+            case "GET":
+                grant = 1;
+                break;
+            case "POST":
+                grant = 2;
+                break;
+            case "PUT":
+                grant = 3;
+                break;
+            case "DELETE":
+                grant = 4;
+                break;
+            default:
+                grant = 0;
+        }
+
+        return resource.getPermission() >= grant;
+    }
+
+    */
+/**
+     * get a single attribute from the @Secured/@PreAuthorize annotation
+     *
+     * @param configAttributes
+     * @return
+     *//*
+
+    private ConfigAttribute getSingleConfigAttribute(Collection<ConfigAttribute> configAttributes) {
+        if (configAttributes == null || configAttributes.size() != 1) {
+            throw new IllegalStateException("Invalid config attribute configuration");
+        }
+        return configAttributes.iterator().next();
+    }
+
+    private CustomUserDetails getCurrentUser(Authentication authentication) {
+        if (authentication.getPrincipal() instanceof UserDetails) {
+            return (CustomUserDetails) authentication.getPrincipal();
+        } else {
+            throw new AccessDeniedException("No Valid User Found");
+        }
+    }
+
+    */
+/**
+     * Fetch the HTTP method from given object
+     *
+     * @param requestMapping
+     * @return
+     *//*
+
+    private String getHttpMethod(RequestMapping requestMapping) {
+        return requestMapping.method()[0].name();
+    }
+
+    */
+/**
+     * returns the section name or url pattern of a method request
+     *
+     * @param configAttribute
+     * @return
+     *//*
+
+    private String getResourceName(ConfigAttribute configAttribute) {
+        return configAttribute != null ? configAttribute.getAttribute() : null;
+    }
+}
+*/
