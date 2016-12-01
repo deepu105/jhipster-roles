@@ -12,7 +12,13 @@
         vm.role = entity;
         vm.setResources = setResources;
 
-        if (entity) vm.setResources();
+        if(entity.$promise) {
+            entity.$promise.then(function() {
+                vm.setResources();
+            }.bind(this));
+        } else {
+            vm.setResources();
+        }
 
         var onSaveSuccess = function (result) {
             $scope.$emit('jhipsterApp:roleUpdate', result);
@@ -48,9 +54,9 @@
                     });
                 });
             } else {
-                RoleResources.query().then(function (resources) {
-                    angular.forEach(resources, function(val, key) {
-                        if (vm.role.resources.filter(function(obj) { return obj.name === val; }).length === 0) {
+                RoleResources.query(function (resources) {
+                    angular.forEach(resources, function(resourceName, key) {
+                        if (vm.role.resources.filter(function(obj) { return obj.name === resourceName; }).length === 0) {
                             vm.role.resources.push({
                                 name: resourceName,
                                 permission : 0
