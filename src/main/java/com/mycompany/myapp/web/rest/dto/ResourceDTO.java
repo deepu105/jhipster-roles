@@ -55,7 +55,9 @@ public class ResourceDTO implements Serializable{
 
         ResourceDTO resourceDTO = (ResourceDTO) o;
 
-        if ( ! Objects.equals(id, resourceDTO.id)) return false;
+        if ( ! Objects.equals(name, resourceDTO.name)) return false;
+        
+        if ( ! Objects.equals(permission, resourceDTO.permission)) return false;
 
         return true;
     }

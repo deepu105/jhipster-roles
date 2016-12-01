@@ -77,7 +77,7 @@ public class Resource {
 
         Resource resource = (Resource) o;
 
-        if (id != null ? !id.equals(resource.id) : resource.id != null) {
+        if (name != null ? !name.equals(resource.name) : resource.name != null) {
             return false;
         }
 
@@ -86,7 +86,7 @@ public class Resource {
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        return name != null ? name.hashCode() : 0;
     }
 
 
